@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[17]:
+# In[29]:
 
 
 #Imported libraries
@@ -18,49 +18,54 @@ def setup():
     white = (255, 255, 255)
     gray = (177, 177, 177)
     
+    #Draw Obstacles
+    for x in range(0, 600):
+
+        for y in range(0, 250):
+        
+            if checkObstacle(x, y):
+                arena[y, x] = (255, 255, 255)
+                
+#Checks to see if a node is an obstacle (or its border)
+def checkObstacle(x, y):
+    
     #Both Rectangles
-    for x in range(100, 151):
+    if x >= 100 and x <= 150:
         
-        for y in range(0, 250):
-            
-            if y < 100 or y >= 150:
-                arena[y, x] = white
-                
+        if y < 100 or y >= 150:
+            return True
+    
     #Pentagon (Left Half)
-    for x in range(235, 301):
+    if x >= 235 and x <= 300:
         
-        for y in range(0, 250):
-            
-            if (y >= (-38/65)*x + (2930/13)) and (y <= (38/65)*x + (320/13)):
-                arena[y, x] = white
-                
+        if (y >= (-38/65)*x + (2930/13)) and (y <= (38/65)*x + (320/13)):
+            return True
+    
     #Pentagon (Right Half)
-    for x in range(300, 366):
+    if x >= 300 and x <= 366:
         
-        for y in range(0, 250):
-            
-            if (y >= (38/65)*x + (-1630/13)) and (y <= (-38/65)*x + (4880/13)):
-                arena[y, x] = white
+        if (y >= (38/65)*x + (-1630/13)) and (y <= (-38/65)*x + (4880/13)):
+            return True
     
     #Triangle
-    for x in range(460, 511):
+    if x >= 460 and x <= 510:
         
-        for y in range (0, 250):
-            
-            if (y >= 2*x - 895) and (y <= -2*x + 1145):
-                arena[y, x] = white
+        if (y >= 2*x - 895) and (y <= -2*x + 1145):
+            return True
+        
+    return False
+  
     
+    
+    
+    
+#Main Code
 arena = np.zeros((250, 600, 3), dtype = "uint8")
+        
 setup()
 cv.imshow("Arena", arena)
 cv.waitKey()
 cv.destroyAllWindows()
-
-
-# In[ ]:
-
-
-
 
 
 # In[ ]:
